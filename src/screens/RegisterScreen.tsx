@@ -9,7 +9,9 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  
+  const [username, setUsername] = useState("");
+  const [faculty, setFaculty] = useState("");
+
   // dropdown states
   const [majorOpen, setMajorOpen] = useState(false);
   const [majorValue, setMajorValue] = useState<string | null>(null);
@@ -63,15 +65,14 @@ const RegisterScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Korisničko ime"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
+          value={username}
+          onChangeText={setUsername}
           autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
           placeholder="Lozinka"
-          value={email}
+          value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
           secureTextEntry
@@ -79,9 +80,8 @@ const RegisterScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Fakultet"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
+          value={faculty}
+          onChangeText={setFaculty}
           autoCapitalize="none"
         />
         {/* dropdown za smjer */}
@@ -93,10 +93,10 @@ const RegisterScreen = () => {
           setValue={setMajorValue}
           setItems={setMajorItems}
           placeholder="Odaberite smjer"
-          placeholderStyle={{ color: "#ffffffc5" }}
+          placeholderStyle={styles.placeholderStyle}
           style={[styles.dropdown, { backgroundColor: "#313bf5",  borderColor: "#ccc" }]}
           dropDownContainerStyle={styles.dropdownContainer}
-          labelStyle={{ color: "#ffffffc5" }}
+          labelStyle={styles.labelStyle}
           zIndex={3000}
           ArrowDownIconComponent={({ style }) => (
             <MaterialIcons name="keyboard-arrow-down" size={24} color="#fff" style={style} />
@@ -114,10 +114,10 @@ const RegisterScreen = () => {
           setValue={setCityValue}
           setItems={setCityItems}
           placeholder="Odaberite grad"
-          placeholderStyle={{ color: "#ffffffc5" }}
+          placeholderStyle={styles.placeholderStyle}
           style={[styles.dropdown, { backgroundColor: "#313bf5",  borderColor: "#ccc" }]}
           dropDownContainerStyle={styles.dropdownContainer}
-          labelStyle={{ color: "#ffffffc5" }}
+          labelStyle={styles.labelStyle}
           zIndex={2000}
           ArrowDownIconComponent={({ style }) => (
             <MaterialIcons name="keyboard-arrow-down" size={24} color="#fff" style={style} />
@@ -198,6 +198,12 @@ const styles = StyleSheet.create({
   },
   footerBtn: {
     marginBottom: 40,
+  },
+  placeholderStyle: {
+    color: "#ffffffc5",
+  },
+  labelStyle: {
+    color: "#ffffffc5",
   }
 });
 
