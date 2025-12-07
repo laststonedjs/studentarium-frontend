@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../../App";
 import { registerUser } from "../api/authApi";
 import CustomButton from "../components/CustomButton";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+
+type RegisterScreenNavProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Register"
+>;
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +19,7 @@ const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [faculty, setFaculty] = useState("");
+  const navigation = useNavigation<RegisterScreenNavProp>();
 
   // dropdown states
   const [majorOpen, setMajorOpen] = useState(false);
@@ -36,7 +45,16 @@ const RegisterScreen = () => {
     try {
       const user = await registerUser(email, password);
       console.log("Registered user:", user);
-      Alert.alert("Success", `User ${user.email} registered successfully!`);
+      Alert.alert(
+        "Success", 
+        `User ${user.email} registered successfully!`,
+        [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate("Login"),
+          }
+        ]
+      );
     } catch (err) {
       console.log("Registration error:", err);
       Alert.alert("Error", "Registration failed");
@@ -138,7 +156,7 @@ const RegisterScreen = () => {
             }}
             onPress={() => {
             // navigacija na Login screen
-            // navigation.navigate("Login");
+            navigation.navigate("Login");
             }}
           >
             <Text style={{ 

@@ -25,3 +25,24 @@ export const registerUser = async (email: string, password: string) => {
     throw error;
   }
 };
+
+export const loginUser = async (email: string, password: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if(!response.ok) { throw new Error(data.message || "Login Failed")};
+
+    return data;
+  } catch (error: any) {
+    Alert.alert("Error", error.message);
+    throw error;
+  }
+}
