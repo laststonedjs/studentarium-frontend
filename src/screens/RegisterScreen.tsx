@@ -43,7 +43,7 @@ const RegisterScreen = () => {
   
   const handleRegister = async () => {
     try {
-      const user = await registerUser(email, password);
+      const user = await registerUser(email, password, name, username, faculty, majorValue, cityValue );
       console.log("Registered user:", user);
       Alert.alert(
         "Success", 
@@ -71,6 +71,7 @@ const RegisterScreen = () => {
           placeholder="Ime i Prezime"
           value={name}
           onChangeText={setName}
+          placeholderTextColor="#9a9a9a"
         />
         <TextInput
           style={styles.input}
@@ -79,6 +80,7 @@ const RegisterScreen = () => {
           keyboardType="email-address"
           onChangeText={setEmail}
           autoCapitalize="none"
+          placeholderTextColor="#9a9a9a"
         />
         <TextInput
           style={styles.input}
@@ -86,6 +88,7 @@ const RegisterScreen = () => {
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
+          placeholderTextColor="#9a9a9a"
         />
         <TextInput
           style={styles.input}
@@ -94,6 +97,7 @@ const RegisterScreen = () => {
           onChangeText={setPassword}
           autoCapitalize="none"
           secureTextEntry
+          placeholderTextColor="#9a9a9a"
         />
         <TextInput
           style={styles.input}
@@ -101,6 +105,7 @@ const RegisterScreen = () => {
           value={faculty}
           onChangeText={setFaculty}
           autoCapitalize="none"
+          placeholderTextColor="#9a9a9a"
         />
         {/* dropdown za smjer */}
         <DropDownPicker
@@ -112,15 +117,15 @@ const RegisterScreen = () => {
           setItems={setMajorItems}
           placeholder="Odaberite smjer"
           placeholderStyle={styles.placeholderStyle}
-          style={[styles.dropdown, { backgroundColor: "#313bf5",  borderColor: "#ccc" }]}
+          style={[styles.dropdown, { backgroundColor: "#fff",  borderColor: "#ccc" }]}
           dropDownContainerStyle={styles.dropdownContainer}
           labelStyle={styles.labelStyle}
           zIndex={3000}
           ArrowDownIconComponent={({ style }) => (
-            <MaterialIcons name="keyboard-arrow-down" size={24} color="#fff" style={style} />
+            <MaterialIcons name="keyboard-arrow-down" size={24} color="#2e2ef1ff" style={style} />
           )}
           ArrowUpIconComponent={({ style }) => (
-            <MaterialIcons name="keyboard-arrow-up" size={24} color="#fff" style={style} />
+            <MaterialIcons name="keyboard-arrow-up" size={24} color="#2e2ef1ff" style={style} />
           )}
         />
         {/* dropdown za grad */}
@@ -133,15 +138,15 @@ const RegisterScreen = () => {
           setItems={setCityItems}
           placeholder="Odaberite grad"
           placeholderStyle={styles.placeholderStyle}
-          style={[styles.dropdown, { backgroundColor: "#313bf5",  borderColor: "#ccc" }]}
+          style={[styles.dropdown, { backgroundColor: "#fff",  borderColor: "#ccc" }]}
           dropDownContainerStyle={styles.dropdownContainer}
           labelStyle={styles.labelStyle}
           zIndex={2000}
           ArrowDownIconComponent={({ style }) => (
-            <MaterialIcons name="keyboard-arrow-down" size={24} color="#fff" style={style} />
+            <MaterialIcons name="keyboard-arrow-down" size={24} color="#2e2ef1ff" style={style} />
           )}
           ArrowUpIconComponent={({ style }) => (
-            <MaterialIcons name="keyboard-arrow-up" size={24} color="#fff" style={style} />
+            <MaterialIcons name="keyboard-arrow-up" size={24} color="#2e2ef1ff" style={style} />
           )}
         />
       </View>
@@ -153,6 +158,7 @@ const RegisterScreen = () => {
               backgroundColor: "transparent",
               padding: 10,
               alignItems: "center",
+              marginBottom: 30
             }}
             onPress={() => {
             // navigacija na Login screen
@@ -164,7 +170,7 @@ const RegisterScreen = () => {
               color: "#ffffffb6", 
               fontSize: 16, 
               fontStyle: "italic",
-              marginTop: 10
+              marginTop: 5
               }}>
                 Vratite se na prijavu
              </Text>
@@ -201,6 +207,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
+    backgroundColor: "#fff",
     padding: 12,
     marginBottom: 15,
     borderRadius: 30,
@@ -211,17 +218,18 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     borderRadius: 20,
-    backgroundColor: "#80aaff",
-    elevation: 5
+    backgroundColor: "#fff",
+    elevation: 5,
+    color: "#9a9a9a"
   },
   footerBtn: {
-    marginBottom: 40,
+    marginBottom: 50,
   },
   placeholderStyle: {
-    color: "#ffffffc5",
+    color: "#9a9a9a",
   },
   labelStyle: {
-    color: "#ffffffc5",
+    color: "#9a9a9a",
   }
 });
 
