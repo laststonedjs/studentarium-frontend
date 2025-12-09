@@ -8,6 +8,7 @@ import {
     Alert
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../App";
 import { useNavigation } from "@react-navigation/native";
@@ -22,17 +23,28 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    if (!email || !password) {
+        Alert.alert("Error", "Please enter your credentials.");
+        return;
+    }
+
     try {
-        const result = await loginUser(email, password);
+        const { user, token } = await loginUser(email, password);
+        console.log("Login success: ", user, token);
 
-        console.log("Login success: ", result);
+        // saving token and user in AsyncStorage
+        await AsyncStorage.multiSet([
+            ["token", token],
+            ["user", JSON.stringify(user)],
+        ]);
 
-        Alert.alert("Success!", "You're logged in successfully!");
-
-        // TODO: later we're gonna store the token here
-        // await AsyncsStorage.setItem("token", result.token)
-
-        navigation.navigate("Home");
+        setPassword("");
+        Alert.alert("Success!", "You're logged in successfully!", [
+            {
+                text: "OK",
+                onPress: () => navigation.navigate("Home")
+            }
+        ]);
     } catch (error) {
         console.log("Login error: ", error);
         Alert.alert("Error!", "Wrong email or password");
@@ -139,6 +151,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginBottom: 14,
     fontSize: 15,
+    color: "#000"
   },
   primaryButtonWrapper: {
     marginTop: 8,
